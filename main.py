@@ -59,7 +59,8 @@ alist = [
 
 os.makedirs('mp3', exist_ok=True)
    
-async def talk(string, filepath, actions): 
+async def talk(string, filepath, actions):
+    #speech.tts(string=string, filename=filepath, voice='gtts', lang='ko')
     device.eye_on(random.randint(100,255),random.randint(100,255),random.randint(100,255))
     if actions != None:
         motion_timer = Timer(0, motion.set_motion, args=(random.choice(actions),))
