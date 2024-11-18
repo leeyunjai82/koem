@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>🌊 해양환경공단 안내</title>
+    <title>🤖 안내 로봇 파이보</title>
     <link rel="shortcut icon" href="../static/logo.png" type="image/x-icon" />
     <style>
         body {
@@ -181,13 +181,13 @@
                 🔊 음량: <span id="volume-label">{{ initial_volume }}</span>
                 <input type="range" id="volume-slider" min="0" max="100" value="{{ initial_volume }}" oninput="updateVolume(this.value)">
             </div>
-            <h2>해양환경공단에 질문해보세요!</h2>
+            <h2>{{ topic }} 에 질문해보세요!</h2>
             {% for question in qlist %}
                 <button class="question-button" onclick="sendQuestion({{ loop.index0 }}, this)">{{ question }}</button>
             {% endfor %}  
         </div>
         <div class="content">
-            <h2>📘 해양환경공단(KOEM) 안내</h2>
+            <h2>📘 {{ topic }} 안내</h2>
             <div id="qa-container" class="qa-container">
                 <div class="question-box">⬅️ 질문을 선택하고, 로봇의 답변을 들어보세요.</div>
                 <div class="answer-box"></div>
