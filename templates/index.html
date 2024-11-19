@@ -240,5 +240,64 @@
             </div>
         </div>
     </div>
-</body>
+   <script>
+        let fullscreen = false;
+
+        function toggleFullScreen() {
+            if (!fullscreen) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+                fullscreen = true;
+                document.getElementById('fullscreen-btn').textContent = '❌ 전체화면 종료';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                fullscreen = false;
+                document.getElementById('fullscreen-btn').textContent = '🔳 전체화면';
+            }
+        }
+
+        async function updateVolume(value) {
+            document.getElementById("volume-label").textContent = value;
+
+            await fetch("/set_volume/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ volume: parseInt(value) })
+            });
+        }
+
+        async function sendQuestion(index, buttonElement) {
+            document.querySelectorAll(".question-button").forEach(el => el.classList.remove("selected"));
+            buttonElement.classList.add("selected");
+
+            const response = await fetch("/get_answer/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ index })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const qaContainer = document.getElementById("qa-container");
+                qaContainer.innerHTML = `
+                    <div class="question-box"><strong>Q:</strong> ${buttonElement.textContent}</div>
+                    <div class="answer-box"><strong>A:</strong> ${data.answer}</div>
+                `;
+            } else {
+                alert("서버 응답에 문제가 발생했습니다.");
+            }
+        }
+    </script>
+  </body>
 </html>

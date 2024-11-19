@@ -15,7 +15,7 @@ motion = Motion()
 device = Device()
 VOLUME = 100
 
-theme = "pastel" # default, dark, mint, retro, pastel 
+theme = "default" # default, dark, mint, retro, pastel
 topic = "해양환경공단"
 qlist = [
     "해양환경공단의 주요 역할은 무엇인가요?",
