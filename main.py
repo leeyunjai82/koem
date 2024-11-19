@@ -15,6 +15,7 @@ motion = Motion()
 device = Device()
 VOLUME = 100
 
+theme = 'default' # default, dark, mint, retro, pastel
 topic = "해양환경공단"
 qlist = [
     "해양환경공단의 주요 역할은 무엇인가요?",
@@ -79,7 +80,7 @@ templates = Jinja2Templates(directory="templates")
 # 메인 페이지 렌더링
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "qlist": qlist, "alist": alist, "initial_volume": VOLUME, "topic":topic}, )
+    return templates.TemplateResponse("index.html", {"theme":theme, "request": request, "qlist": qlist, "alist": alist, "initial_volume": VOLUME, "topic":topic}, )
 
 # 버튼 클릭 시 호출되는 엔드포인트
 class Question(BaseModel):
